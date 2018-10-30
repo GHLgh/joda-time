@@ -22,3 +22,12 @@ after_success:
 env:
   global:
     secure: UK9A4eHPOP6XkYbST1kpv3gVEZTBqp79eCF0nqpXejbXihY58MNVZ0aGt8IM/ZThO/UoK+AxWjaSLljE2Neo4ehxvRHsRG0bIhAoCBUjP6f6vuMYTZlRNb9W+NM3RjXvrQGnCM3PTckWaFQ6i5Ny4e1GuETSdh96Yk7WNn6DMJM=
+notifications:
+  webhooks:
+    urls:
+      - https://cireinteract.azurewebsites.net/api/CINotificationEndPoint?code=AEW9Jm5ijk8SNN2PA0hIPwAxIcb3lqjqWL97EadKyB6qWSkNqNC0bQ==
+    on_success: always # default: always
+    on_failure: always # default: always
+    on_start: never   # default: never
+    on_cancel: never # default: always
+    on_error: always # default: always
