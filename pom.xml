@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-  <!-- Build does not work on Java 9 or later as Java 5 is not a valid target -->
+  
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>joda-time</groupId>
@@ -12,14 +11,14 @@
   <description>Date and time library to replace JDK date handling</description>
   <url>http://www.joda.org/joda-time/</url>
 
-  <!-- ==================================================================== -->
+  
   <issueManagement>
     <system>GitHub</system>
     <url>https://github.com/JodaOrg/joda-time/issues</url>
   </issueManagement>
   <inceptionYear>2002</inceptionYear>
 
-  <!-- ==================================================================== -->
+  
   <developers>
     <developer>
       <id>jodastephen</id>
@@ -33,7 +32,7 @@
     <developer>
       <id>broneill</id>
       <name>Brian S O'Neill</name>
-      <email></email>
+      <email />
       <roles>
         <role>Senior Developer</role>
       </roles>
@@ -299,7 +298,7 @@
     </contributor>
   </contributors>
 
-  <!-- ==================================================================== -->
+  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -318,7 +317,7 @@
     <url>http://www.joda.org</url>
   </organization>
 
-  <!-- ==================================================================== -->
+  
   <build>
     <resources>
       <resource>
@@ -336,9 +335,9 @@
         </includes>
       </resource>
     </resources>
-    <!-- define build -->
+    
     <plugins>
-      <!-- Enforce Maven 3.5.0 -->
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
@@ -358,7 +357,7 @@
           </execution>
         </executions>
       </plugin>
-      <!-- Compile TZDB -->
+      
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
@@ -401,7 +400,7 @@
           </arguments>
         </configuration>
       </plugin>
-      <!-- Setup testing -->
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -409,10 +408,10 @@
           <includes>
             <include>**/TestAllPackages.java</include>
           </includes>
-          <!--argLine>-Djava.security.manager -Djava.security.policy=${basedir}/src/test/resources/java.policy</argLine-->
+          
         </configuration>
       </plugin>
-      <!-- Setup Jar file manifest entries -->
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -459,7 +458,7 @@
           </archive>
         </configuration>
       </plugin>
-      <!-- Setup Javadoc jar -->
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -485,7 +484,7 @@
           </execution>
         </executions>
       </plugin>
-      <!-- Setup source jar -->
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
@@ -512,14 +511,14 @@
             </configuration>
           </execution>
         </executions>
-        <!-- work around maven bug where properties files added twice -->
+        
         <configuration>
           <excludes>
             <exclude>**/*.properties</exclude>
           </excludes>
         </configuration>
       </plugin>
-      <!-- Compatibility check -->
+      
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>clirr-maven-plugin</artifactId>
@@ -530,11 +529,23 @@
           <logResults>true</logResults>
         </configuration>
       </plugin>
-    </plugins>
-    <!-- Manage plugin versions -->
+    <plugin>
+    <groupId>org.ekstazi</groupId>
+    <artifactId>ekstazi-maven-plugin</artifactId>
+    <version>5.2.0</version> 
+    <executions>
+        <execution>
+        <id>ekstazi</id>
+        <goals>
+            <goal>select</goal>
+        </goals>
+        </execution>
+    </executions>
+</plugin></plugins>
+    
     <pluginManagement>
       <plugins>
-        <!-- Maven build and reporting plugins (alphabetical) -->
+        
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-assembly-plugin</artifactId>
@@ -645,7 +656,7 @@
           <artifactId>maven-toolchains-plugin</artifactId>
           <version>${maven-toolchains-plugin.version}</version>
         </plugin>
-        <!-- Setup release -->
+        
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-release-plugin</artifactId>
@@ -662,7 +673,7 @@
           <artifactId>build-helper-maven-plugin</artifactId>
           <version>${build-helper-maven-plugin.version}</version>
         </plugin>
-        <!-- Setup site with reflow maven skin -->
+        
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
@@ -678,7 +689,7 @@
             </dependency>
           </dependencies>
         </plugin>
-        <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+        
         <plugin>
           <groupId>org.eclipse.m2e</groupId>
           <artifactId>lifecycle-mapping</artifactId>
@@ -709,14 +720,14 @@
     </pluginManagement>
   </build>
 
-  <!-- ==================================================================== -->
+  
   <dependencies>
     <dependency>
       <groupId>org.joda</groupId>
       <artifactId>joda-convert</artifactId>
       <version>1.2</version>
       <scope>compile</scope>
-      <optional>true</optional><!-- mandatory in Scala -->
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -726,10 +737,10 @@
     </dependency>
   </dependencies>
 
-  <!-- ==================================================================== -->
+  
   <reporting>
     <plugins>
-      <!-- Setup standard project info reports -->
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -749,7 +760,7 @@
           </reportSet>
         </reportSets>
       </plugin>
-      <!-- Setup Javadoc report -->
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -762,7 +773,7 @@
           </reportSet>
         </reportSets>
       </plugin>
-      <!-- Setup Surefire report -->
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-report-plugin</artifactId>
@@ -771,7 +782,7 @@
           <showSuccess>true</showSuccess>
         </configuration>
       </plugin>
-      <!-- Setup changes (release notes) -->
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-changes-plugin</artifactId>
@@ -787,7 +798,7 @@
     </plugins>
   </reporting>
 
-  <!-- ==================================================================== -->
+  
   <distributionManagement>
     <repository>
       <id>sonatype-joda-staging</id>
@@ -805,9 +816,9 @@
     <downloadUrl>https://oss.sonatype.org/content/repositories/joda-releases</downloadUrl>
   </distributionManagement>
 
-  <!-- ==================================================================== -->
+  
   <profiles>
-    <!-- Need earlier surefire plugin for Java 5 support -->
+    
     <profile>
       <id>java5to7</id>
       <activation>
@@ -817,7 +828,7 @@
         <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
       </properties>
     </profile>
-    <!-- Add doclint -->
+    
     <profile>
       <id>java8plus</id>
       <activation>
@@ -828,8 +839,8 @@
         <additionalparam>-Xdoclint:none</additionalparam>
       </properties>
     </profile>
-    <!-- Base deployment profile, activated by -Doss.repo -->
-    <!-- Release should be performed using a Java 8 JVM -->
+    
+    
     <profile>
       <id>repo-sign-artifacts</id>
       <activation>
@@ -839,7 +850,7 @@
       </activation>
       <build>
         <plugins>
-          <!-- Sign artifacts -->
+          
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
@@ -853,7 +864,7 @@
               </execution>
             </executions>
           </plugin>
-          <!-- Create dist files -->
+          
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-assembly-plugin</artifactId>
@@ -874,7 +885,7 @@
               </execution>
             </executions>
           </plugin>
-          <!-- Release dist files to GitHub -->
+          
           <plugin>
             <groupId>de.jutzig</groupId>
             <artifactId>github-release-plugin</artifactId>
@@ -904,7 +915,7 @@
               </execution>
             </executions>
           </plugin>
-          <!-- Use nexus plugin to directly release -->
+          
           <plugin>
             <groupId>org.sonatype.plugins</groupId>
             <artifactId>nexus-staging-maven-plugin</artifactId>
@@ -960,9 +971,9 @@
     </profile>
   </profiles>
 
-  <!-- ==================================================================== -->
+  
   <properties>
-    <!-- Plugin version numbers -->
+    
     <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
     <maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
     <maven-changes-plugin.version>2.12.1</maven-changes-plugin.version>
@@ -985,11 +996,11 @@
     <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
     <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
     <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
-    <!-- Stick with this version of surefire, see Java 5 comments above -->
+    
     <maven-surefire-report-plugin.version>2.21.0</maven-surefire-report-plugin.version>
     <maven-toolchains-plugin.version>1.1</maven-toolchains-plugin.version>
     <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
-    <!-- Properties for maven-compiler-plugin -->
+    
     <maven.compiler.compilerVersion>1.5</maven.compiler.compilerVersion>
     <maven.compiler.source>1.5</maven.compiler.source>
     <maven.compiler.target>1.5</maven.compiler.target>
@@ -998,13 +1009,13 @@
     <maven.compiler.optimize>true</maven.compiler.optimize>
     <maven.compiler.debug>true</maven.compiler.debug>
     <maven.compiler.debuglevel>lines,source</maven.compiler.debuglevel>
-    <!-- Properties for maven-javadoc-plugin -->
+    
     <author>false</author>
     <notimestamp>true</notimestamp>
-    <!-- Properties for maven-checkstyle-plugin -->
+    
     <checkstyle.config.location>src/main/checkstyle/checkstyle.xml</checkstyle.config.location>
     <linkXRef>false</linkXRef>
-    <!-- Other properties -->
+    
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <tz.database.version>2018e</tz.database.version>
