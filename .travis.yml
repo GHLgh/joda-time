@@ -1,24 +1,39 @@
-# build does not work on Java 9 or later as Java 5 is not a valid target
-
-sudo: false
-language: java
-jdk:
-  - oraclejdk8
-  - openjdk7
+after_script:
+- find $TRAVIS_BUILD_DIR -name 'TEST*.xml' -print | cpio -pvdumB $HOME/report_placeholder
+- tar -zcf ${TRAVIS_BRANCH}_`echo ${TRAVIS_JOB_NUMBER} | sed -e 's/[0-9]*\.//'`.tar.gz $HOME/report_placeholder
+- curl -F "ekstazi=@${TRAVIS_BUILD_DIR}/${TRAVIS_BRANCH}_`echo ${TRAVIS_JOB_NUMBER} | sed -e 's/[0-9]*\.//'`.tar.gz" https://cireinteract.azurewebsites.net/api/StoreReportEndPoint?code=tl93p4oBpLOxwwYgaFanI/JhDdlynBag5LXYETBfNAM6QSjUaIfXgw==
+after_success:
+- if [[ $TRAVIS_TAG =~ ^website.*$ ]] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ]; then chmod +x ./.github/website.sh; .github/website.sh; fi
+- if [[ $TRAVIS_TAG =~ ^v.*$ ]] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ]; then chmod +x ./.github/website.sh; .github/website.sh; fi
+before_cache:
+- rm -rf $HOME/.m2/repository/org/joda/time
+- find $TRAVIS_BUILD_DIR -name '*.zlc' -print | cpio -pvdumB $HOME/starts_cache
+- find $TRAVIS_BUILD_DIR -name '*.graph' -print | cpio -pvdumB $HOME/starts_cache
+before_script:
+- (cd $HOME/starts_cache && find . -name '*.zlc' -print | cpio -pvdumB /)
+- (cd $HOME/starts_cache && find . -name '*.graph' -print | cpio -pvdumB /)
 cache:
   directories:
-    - "$HOME/.m2/repository"
-before_cache:
-  - rm -rf $HOME/.m2/repository/org/joda/time
-# install
-install:
-  - mvn --version
-script:
-  - mvn install site -e -B
-after_success:
-  - if [[ $TRAVIS_TAG =~ ^website.*$ ]] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ]; then chmod +x ./.github/website.sh; .github/website.sh; fi
-  - if [[ $TRAVIS_TAG =~ ^v.*$ ]] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ]; then chmod +x ./.github/website.sh; .github/website.sh; fi
-# secure keys for GITHUB_TOKEN
+  - $HOME/.m2/repository
+  - $HOME/starts_cache
 env:
   global:
     secure: UK9A4eHPOP6XkYbST1kpv3gVEZTBqp79eCF0nqpXejbXihY58MNVZ0aGt8IM/ZThO/UoK+AxWjaSLljE2Neo4ehxvRHsRG0bIhAoCBUjP6f6vuMYTZlRNb9W+NM3RjXvrQGnCM3PTckWaFQ6i5Ny4e1GuETSdh96Yk7WNn6DMJM=
+install:
+- mvn --version
+jdk:
+- oraclejdk8
+- openjdk7
+language: java
+notifications:
+  webhooks:
+    on_cancel: never
+    on_error: always
+    on_failure: always
+    on_start: never
+    on_success: always
+    urls:
+    - https://cireinteract.azurewebsites.net/api/CINotificationEndPoint?code=AEW9Jm5ijk8SNN2PA0hIPwAxIcb3lqjqWL97EadKyB6qWSkNqNC0bQ==
+script:
+- mvn starts:starts
+sudo: false
